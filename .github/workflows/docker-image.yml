@@ -1,0 +1,27 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Build Docker image
+      run: docker build -t docker-tests .
+
+    - name: Run tests and container
+      run: |
+        docker run -d -p 888:88 docker-tests
+        sleep 5
+        curl -sSf http://localhost:888 || exit 1
+        echo "My test task is completed!"
+
+    - name: Stop and remove the container
+      run: docker stop $(docker ps -q --filter ancestor=docker-tests)
