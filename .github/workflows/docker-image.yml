@@ -17,13 +17,13 @@ jobs:
       run: docker build -t mydockerimage:latest .
 
     - name: Run Docker container
-      run: |
-        docker run -d -p 888:88 mydockerimage:latest
-        sleep 10
-        curl http://localhost:888
+      id: run_container
+      run: docker run -d -p 888:88 mydockerimage:latest
 
     - name: Test server
-      run: 
+      if: ${{ job.status == 'completed' }}
+      run: |
+        curl http://localhost:888
         echo "My test task is completed!"
 
     - name: Stop and remove the container
