@@ -23,9 +23,8 @@ jobs:
 
     - name: Test server
       run: |
+        sleep 5
         echo "start tests!"
-        sleep 15
-        echo "success delay!"
         curl localhost:888
         echo "My test task is completed!"
 
