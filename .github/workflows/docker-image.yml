@@ -23,7 +23,7 @@ jobs:
         echo "docker is runned!"
 
     - name: Test server
-      if: ${{ job.status == 'completed' }}
+      if: ${{ run_container.status == 'completed' }}
       run: |
         curl http://localhost:888
         echo "My test task is completed!"
