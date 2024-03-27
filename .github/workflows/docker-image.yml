@@ -23,7 +23,7 @@ jobs:
 
     - name: Test server
       run: |
-        curl http://localhost:88
+        curl http://localhost:888
         echo "My test task is completed!"
 
     - name: Stop and remove the container
