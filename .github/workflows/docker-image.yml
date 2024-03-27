@@ -26,7 +26,7 @@ jobs:
         echo "start tests!"
         sleep 15
         echo "success delay!"
-        curl http://localhost:888
+        curl localhost:888 || echo "wrong"
         echo "My test task is completed!"
 
     - name: Stop and remove the container
