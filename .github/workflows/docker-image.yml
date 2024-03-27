@@ -18,3 +18,10 @@ jobs:
       
     - name: Run Docker container
       run: docker run mydockerimage:latest
+        sleep 5
+        curl -sSf http://localhost:888 || exit 1
+        echo "My test task is completed!"
+
+    - name: Stop and remove the container
+      run: docker stop $(docker ps -q --filter ancestor=docker-tests)
+
