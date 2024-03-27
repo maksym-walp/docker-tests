@@ -18,7 +18,9 @@ jobs:
 
     - name: Run Docker container
       id: run_container
-      run: docker run -d -p 888:88 mydockerimage:latest
+      run: |
+        docker run -d -p 888:88 mydockerimage:latest
+        echo "docker is runned!"
 
     - name: Test server
       if: ${{ job.status == 'completed' }}
