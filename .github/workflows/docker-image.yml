@@ -17,14 +17,15 @@ jobs:
       run: docker build -t mydockerimage:latest .
 
     - name: Run Docker container
-      id: run_container
       run: |
         docker run -d -p 888:88 mydockerimage:latest
         echo "docker is runned!"
 
     - name: Test server
-      if: ${{ run_container.status == 'completed' }}
       run: |
+        echo "start tests!"
+        sleep 15
+        echo "success delay!"
         curl http://localhost:888
         echo "My test task is completed!"
 
