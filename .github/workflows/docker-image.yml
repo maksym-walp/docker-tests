@@ -14,12 +14,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t docker-tests .
+      run: docker build -t docker-tests ../
 
     - name: Run tests and container
       run: |
         docker run -d -p 888:88 docker-tests
-        sleep 5
+        sleep 10
         curl -sSf http://localhost:888 || exit 1
         echo "My test task is completed!"
 
