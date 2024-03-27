@@ -15,13 +15,13 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t mydockerimage:latest .
-      
+
     - name: Run Docker container
-      run: docker run mydockerimage:latest
+      run: |
+        docker run -d -p 888:888 mydockerimage:latest
         sleep 5
         curl -sSf http://localhost:888 || exit 1
         echo "My test task is completed!"
 
     - name: Stop and remove the container
-      run: docker stop $(docker ps -q --filter ancestor=docker-tests)
-
+      run: docker stop $(docker ps -q --filter ancestor=mydockerimage)
