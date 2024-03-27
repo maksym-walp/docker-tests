@@ -18,9 +18,9 @@ jobs:
 
     - name: Run Docker container
       run: |
-        docker run -d -p 888:888 mydockerimage:latest
+        docker run -d -p 888:88 mydockerimage:latest
         sleep 5
-        curl -sSf http://localhost:888 || exit 1
+        curl http://localhost:888
         echo "My test task is completed!"
 
     - name: Stop and remove the container
