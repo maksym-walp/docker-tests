@@ -21,23 +21,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Check if port 888 is available
+    - name: Check if port 80 is available
       run: |
-        netstat -tuln | grep ':888 ' || echo "Port 888 is free!"
+        netstat -tuln | grep ':80 ' || echo "Port 888 is free!"
 
     - name: Build Docker image
       run: docker build -t mynginximage:latest .
 
     - name: Run Docker container
       run: |
-        docker run -d -p 888:88 mynginximage:latest
+        docker run -d -p 80 mynginximage:latest
         echo "docker is runned!"
 
     - name: Test server
       run: |
         sleep 5
         echo "start tests!"
-        curl localhost:888
+        curl localhost:80
         echo "My test task is completed!"
 
     - name: Stop and remove the container
