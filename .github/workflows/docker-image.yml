@@ -7,37 +7,25 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-stable
 
     steps:
-    - name: Docker Setup QEMU
-      uses: docker/setup-qemu-action@v3.0.0
-      with:
-        # QEMU static binaries Docker image (e.g. tonistiigi/binfmt:latest)
-        image: tonistiigi/binfmt:latest
-        # Platforms to install (e.g. arm64,riscv64,arm)
-        platforms: default
-
     - name: Checkout repository
       uses: actions/checkout@v2
-
-    - name: Check if port 80 is available
-      run: |
-        netstat -tuln | grep ':80 ' || echo "Port 888 is free!"
 
     - name: Build Docker image
       run: docker build -t mynginximage:latest .
 
     - name: Run Docker container
       run: |
-        docker run -d -p 80 mynginximage:latest
+        docker run -d -p 888:88 mynginximage:latest
         echo "docker is runned!"
 
     - name: Test server
       run: |
         sleep 5
         echo "start tests!"
-        curl localhost:80
+        curl localhost:888
         echo "My test task is completed!"
 
     - name: Stop and remove the container
