@@ -10,15 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Docker Setup QEMU
+      uses: docker/setup-qemu-action@v3.0.0
+      with:
+    # QEMU static binaries Docker image (e.g. tonistiigi/binfmt:latest)
+        image: tonistiigi/binfmt:latest
+    # Platforms to install (e.g. arm64,riscv64,arm)
+        platforms: default
+    
     - name: Checkout repository
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t mydockerimage:latest .
+      run: docker build -t mynginximage:latest .
 
     - name: Run Docker container
       run: |
-        docker run -d -p 888:88 mydockerimage:latest
+        docker run -d -p 888:88 mynginximage:latest
         echo "docker is runned!"
 
     - name: Test server
@@ -29,4 +37,4 @@ jobs:
         echo "My test task is completed!"
 
     - name: Stop and remove the container
-      run: docker stop $(docker ps -q --filter ancestor=mydockerimage)
+      run: docker stop $(docker ps -q --filter ancestor=mynginximage)
