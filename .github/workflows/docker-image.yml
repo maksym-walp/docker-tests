@@ -13,13 +13,17 @@ jobs:
     - name: Docker Setup QEMU
       uses: docker/setup-qemu-action@v3.0.0
       with:
-    # QEMU static binaries Docker image (e.g. tonistiigi/binfmt:latest)
+        # QEMU static binaries Docker image (e.g. tonistiigi/binfmt:latest)
         image: tonistiigi/binfmt:latest
-    # Platforms to install (e.g. arm64,riscv64,arm)
+        # Platforms to install (e.g. arm64,riscv64,arm)
         platforms: default
-    
+
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Check if port 888 is available
+      run: |
+        netstat -tuln | grep ':888 ' || echo "Port 888 is free!"
 
     - name: Build Docker image
       run: docker build -t mynginximage:latest .
