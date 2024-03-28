@@ -25,7 +25,7 @@ jobs:
       run: |
         sleep 5
         echo "start tests!"
-        curl localhost:888:88
+        curl localhost:888
         echo "My test task is completed!"
 
     - name: Stop and remove the container
