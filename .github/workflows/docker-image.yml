@@ -13,23 +13,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Build & push Docker image
-      uses: mr-smithers-excellent/docker-build-push@v6
-      with:
-        image: maksym42lun/docker-tests
-        tags: v1, latest
-        registry: docker.io
-        dockerfile: Dockerfile
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+    # - name: Build & push Docker image
+    #   uses: mr-smithers-excellent/docker-build-push@v6
+    #   with:
+    #     image: maksym42lun/docker-tests
+    #     tags: v1, latest
+    #     registry: docker.io
+    #     dockerfile: Dockerfile
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
 
-    #- name: Build Docker image
-    #  run: docker build -t mynginximage:latest .
+    - name: Build Docker image
+      run: docker build -t mynginximage:latest .
 
-    #- name: Run Docker container
-    #  run: |
-    #    docker run -d -p 888:88 mynginximage:latest
-    #    echo "docker is runned!"
+    - name: Run Docker container
+      run: |
+        docker run -d -p 888:88 mynginximage:latest
+        echo "docker is runned!"
 
     - name: Test server
       run: |
